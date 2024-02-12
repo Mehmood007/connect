@@ -114,6 +114,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'userauths.User'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -151,7 +153,7 @@ JAZZMIN_SETTINGS = {
     'site_header': "Connect",
     'site_brand': "Connecting people together...",
     'site_logo': "images/logo.png",
-    'copyright': "All Right Reserved 2023",
+    'copyright': "All Right Reserved 2024",
     "welcome_sign": "Welcome to Connect, Login Now.",
     "topmenu_links": [
         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},

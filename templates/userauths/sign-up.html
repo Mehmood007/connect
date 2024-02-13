@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Favicon -->
-    <link href="assets/images/favicon.png" rel="icon" type="image/png">
+    <link href="{% static 'images/logo.png' %}" rel="icon" type="image/png">
 
     <!-- Basic Page Needs
         ================================================== -->
-    <title>Socialite Template</title>
+    <title>Connect</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Socialite is - Professional A unique and beautiful collection of UI elements">
@@ -57,7 +57,7 @@
                     {% endfor %}
                 {% endif %}
 
-                <form class="p-6 space-y-4 relative bg-white shadow-lg rounded-lg" method="POST" action="{% url 'userauths:sign-in' %}">
+                <form class="p-6 space-y-4 relative bg-white shadow-lg rounded-lg" method="POST" action="{% url 'sign-in' %}">
                     {% csrf_token %}
                     <input type="email" name="email" placeholder="Email or Phone Number" class="with-border">
                     <input type="password" name="password" placeholder="Password" class="with-border">

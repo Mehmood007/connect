@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Favicon -->
-    <link href="assets/images/favicon.png" rel="icon" type="image/png">
+    <link href="{% static 'images/logo.png' %}" rel="icon" type="image/png">
 
     <!-- Basic Page Needs
         ================================================== -->
-    <title>Socialite Template</title>
+    <title>Connect</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Socialite is - Professional A unique and beautiful collection of UI elements">
@@ -57,7 +57,7 @@
                         </span>
 
                         <div id="logo">
-                            <a href="{% url 'core:feed' %}"> 
+                            <a href="{% url 'feed' %}"> 
                                 <img src="{% static 'assets/images/logo.png' %}" alt="">
                                 <img src="{% static 'assets/images/logo-mobile.png' %}" class="logo_mobile" alt="">
                             </a>
@@ -428,8 +428,8 @@
                                         
                                     </ul>
                                 </div>
-                                <a href="{% url 'core:inbox' %}" class="see-all">All Chat Messages</a>
-                                <a href="{% url 'core:group_inbox' %}" class="see-all">All Group Messages</a>
+                                <a href="" class="see-all">All Chat Messages</a>
+                                <a href="" class="see-all">All Group Messages</a>
                             </div>
 
 
@@ -438,7 +438,7 @@
                             </a>
                             <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
 
-                                <a href="{% url 'userauths:my-profile' %}" class="user">
+                                <a href="" class="user">
                                     <div class="user_avatar">
                                         <img src="{{request.user.profile.image.url}}" alt="">
                                     </div>
@@ -454,11 +454,11 @@
                                     Upgrade To Premium  </span>
                                 </a>
                                 <hr>
-                                <a href="{% url 'userauths:my-profile' %}">
+                                <a href="">
                                     <i class="fas fa-user"></i>
                                     My Account 
                                 </a>
-                                <a href="{% url 'userauths:profile-update' %}">
+                                <a href="">
                                     <i class="fas fa-cog"></i>
                                     Profile Settings
                                 </a>
@@ -481,7 +481,7 @@
                                         <span class="uk-switch-button"></span>
                                     </span>
                                 </a>
-                                <a href="{% url 'userauths:sign-out' %}">
+                                <a href="{% url 'sign-out' %}">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                     </svg>
@@ -504,7 +504,7 @@
             <div class="sidebar_inner" data-simplebar>
 
                 <ul>
-                    <li class="active"><a href="{% url 'core:feed' %}"> 
+                    <li class="active"><a href=""> 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-blue-600"> 
                             <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                         </svg>
@@ -539,7 +539,7 @@
                         </svg>
                         <span> Course</span></a>
                     </li>
-                    <li><a href="{% url 'core:games' %}"> 
+                    <li><a href=""> 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-green-500">
                             <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
                         </svg>  <span>  Games </span></a>
@@ -633,7 +633,7 @@
                 </div>
 
                 <ul class="side_links" data-sub-title="Pages">
-                    <li><a href="{% url 'userauths:profile-update' %}"><ion-icon name="settings-outline" class="side-icon"></ion-icon> <span> Setting  </span> </a></li>
+                    <li><a href=""><ion-icon name="settings-outline" class="side-icon"></ion-icon> <span> Setting  </span> </a></li>
                     <li>
                         <a href="#">
                             <ion-icon name="albums-outline" class="side-icon"></ion-icon> <span> Info Pages  </span> </a>
@@ -656,7 +656,7 @@
                             <ion-icon name="log-in-outline" class="side-icon"></ion-icon> <span>  Authentication  </span> </a>
                             
                             {% if request.user.is_authenticated %}
-                            <ul><li><a href="{% url 'userauths:sign-out' %}">Sign Out </a></li></ul>
+                            <ul><li><a href="{% url 'sign-out' %}">Sign Out </a></li></ul>
                             {% endif %}
                                 
                     </li>
@@ -686,7 +686,7 @@
         {% endblock content %}
             
         
-        <script>
+        <!-- <script>
             {% for message in messages %}
     
             Swal.fire({
@@ -696,7 +696,7 @@
                 timer: 1500
             })
             {% endfor %}
-        </script>
+        </script> -->
 
 
     <!-- For Night mode -->

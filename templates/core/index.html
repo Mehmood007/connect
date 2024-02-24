@@ -101,12 +101,12 @@
                                 <!-- post header-->
                                 <div class="flex justify-between items-center lg:p-4 p-2.5">
                                     <div class="flex flex-1 items-center space-x-4">
-                                        <a href="{% url 'userauths:profile' p.user.username %}">
+                                        <a href="">
                                             <img src="{{ p.user.profile.image.url }}" style="width: 40px; height: 40px;" class="bg-gray-200 border border-white rounded-full w-10 h-10">
                                         </a>
                                         <div class="flex-1 font-semibold capitalize">
-                                            <a href="{% url 'userauths:profile' p.user.username %}" class="text-black dark:text-gray-100">{{ p.user.profile.full_name|title }}</a>
-                                            <div class="text-gray-700 flex items-center space-x-2">{{p.date|timesince}} ago 
+                                            <a href="" class="text-black dark:text-gray-100">{{ p.user.profile.full_name|title }}</a>
+                                            <div class="text-gray-700 flex items-center space-x-2">{{p.created_at|timesince}} ago 
                                                 <ion-icon name="story-time"></ion-icon>
                                             </div>
                                         </div>
@@ -308,7 +308,7 @@
                                                         
                                                         {% if c.comment_replies.count > 0 %}
                                                         
-                                                        <span style="border-bottom: dashed 1px rgb(73, 173, 255);"><a href="{% url 'core:post-detail' p.slug %}" class="text-blue-500"> <small>View All {{c.comment_replies.count}} Replies</small> </a></span>
+                                                        <span style="border-bottom: dashed 1px rgb(73, 173, 255);"><a href="" class="text-blue-500"> <small>View All {{c.comment_replies.count}} Replies</small> </a></span>
                                                         {% endif %}
                                                             
                                                     {% endfor %}
@@ -325,7 +325,7 @@
                                     {% if p.post_comments.count %}
                                     <a href="#" class="hover:text-blue-600 hover:underline">No more Comments </a>
                                     {% else %}
-                                    <a href="{% url 'core:post-detail' p.slug %}" class="hover:text-blue-600 hover:underline">  View {{p.post_comments.count}} more Comments </a>
+                                    <a href="" class="hover:text-blue-600 hover:underline">  View {{p.post_comments.count}} more Comments </a>
                                     {% endif %}
                                         
 

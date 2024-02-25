@@ -11,7 +11,11 @@ class BaseModel(models.Model):
     def delete(self, *args, **kwargs) -> None:
         attachments = self._attachments()
         for _, attachment in attachments:
-            if os.path.isfile(attachment.path):
+            if (
+                attachment
+                and hasattr(attachment, 'path')
+                and os.path.isfile(attachment.path)
+            ):
                 os.remove(attachment.path)
         super(BaseModel, self).delete(*args, **kwargs)
 

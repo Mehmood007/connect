@@ -47,7 +47,7 @@ class Post(BaseModel):
     views = models.PositiveIntegerField(default=0)
 
     def __str__(self) -> str:
-        return self.title
+        return f'{self.title}'
 
     class Meta:
         verbose_name_plural = 'Post'

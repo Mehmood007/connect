@@ -8,6 +8,7 @@ $(document).ready(function() {
       var fileInput = $('#post-thumbnail')[0];
       var file = fileInput.files[0];
       var fileName = file.name; // Extract the filename
+      var csrfToken = $(this).find('input[name="csrfmiddlewaretoken"]').val();
   
       var formData = new FormData();
       formData.append('post-caption', post_caption);
@@ -15,12 +16,15 @@ $(document).ready(function() {
       formData.append('post-thumbnail', file, fileName);
   
       $.ajax({
-        url: '/create-post/',
+        url: '/create-post',
         type: 'POST',
         dataType: 'json',
         data: formData,
         processData: false,
         contentType: false,
+        headers: {
+            'X-CSRFToken': csrfToken // Include CSRF token in headers
+        },
         
   
         success: function(res) {

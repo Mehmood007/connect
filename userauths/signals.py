@@ -12,4 +12,4 @@ def post_save_create_profile_receiver(
         Profile.objects.create(user=instance)
     else:
         if not Profile.objects.filter(user=instance).exists():
-            User.objects.create(user=instance)
+            Profile.objects.create(user=instance)

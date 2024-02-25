@@ -158,10 +158,9 @@ $(document).ready(function() {
 //   LIke Post
 $(document).on("click", "#like-btn", function(){
     let btn_val = $(this).attr("data-like-btn")
-    console.log(btn_val);
 
     $.ajax({
-        url: "/like-post/",
+        url: "/like-post",
         dataType: "json",
         data:{
             "id":btn_val
@@ -193,18 +192,15 @@ $(document).on("click", "#comment-btn", function(){
     let id = $(this).attr("data-comment-btn")
     let comment = $("#comment-input"+id).val()
 
-    console.log(id);
-    console.log(comment);
-
     $.ajax({
-        url: "/comment-post/",
+        url: "/comment-on-post",
         dataType: "json",
         data:{
             "id":id,
             "comment":comment,
         },
         success: function(res){
-
+            console.log(res)
             let newComment = '<div class="flex card shadow p-2" id="comment-div'+res.data.comment_id+'">\
                     <div class="w-10 h-10 rounded-full relative flex-shrink-0">\
                         <img src="' + res.data.profile_image + '" alt="" class="absolute h-full rounded-full w-full">\
@@ -254,7 +250,7 @@ $(document).on("click", "#like-comment-btn", function(){
     console.log(id);
 
     $.ajax({
-        url: "/like-comment/",
+        url: "/like-comment",
         dataType: "json",
         data:{
             "id":id
@@ -293,7 +289,7 @@ $(document).on("click", "#reply-comment-btn", function(){
     console.log(reply);
 
     $.ajax({
-        url: "/reply-comment/",
+        url: "/reply-comment",
         dataType: "json",
         data:{
             "id":id,
@@ -330,7 +326,7 @@ $(document).on("click", "#delete-comment", function(){
     console.log(id);
 
     $.ajax({
-        url: "/delete-comment/",
+        url: "/delete-comment",
         dataType: "json",
         data: {
             "id":id

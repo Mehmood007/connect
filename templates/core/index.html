@@ -288,7 +288,7 @@
                                                                     </div>
                                                                 </details-menu>
                                                           </details>
-                                                    <span> <small>{{c.date|timesince}} ago</small> </span>
+                                                    <span> <small>{{c.created_at|timesince}} ago</small> </span>
                                                 </div>
                                                 <div class="reply-div{{c.id}}">
                                                     
@@ -308,7 +308,7 @@
                                                         
                                                         {% if c.comment_replies.count > 0 %}
                                                         
-                                                        <span style="border-bottom: dashed 1px rgb(73, 173, 255);"><a href="" class="text-blue-500"> <small>View All {{c.comment_replies.count}} Replies</small> </a></span>
+                                                        <span style="border-bottom: dashed 1px rgb(73, 173, 255);"><a href="{% url 'post-detail' p.slug %}" class="text-blue-500"> <small>View All {{c.comment_replies.count}} Replies</small> </a></span>
                                                         {% endif %}
                                                             
                                                     {% endfor %}
@@ -322,10 +322,10 @@
                                     </div>
                                     
                                     
-                                    {% if p.post_comments.count %}
+                                    {% if p.post_comments.count < 3 %}
                                     <a href="#" class="hover:text-blue-600 hover:underline">No more Comments </a>
                                     {% else %}
-                                    <a href="" class="hover:text-blue-600 hover:underline">  View {{p.post_comments.count}} more Comments </a>
+                                    <a href="{% url 'post-detail' p.slug %}" class="hover:text-blue-600 hover:underline">  View {{p.post_comments.count}} more Comments </a>
                                     {% endif %}
                                         
 

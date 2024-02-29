@@ -1,6 +1,5 @@
 {% extends 'partials/base.html' %}
 {% load static %}
-{% load mathfilters %}
 {% block content %}
 
         <!-- Main Contents -->
@@ -55,7 +54,7 @@
                             
                                 
                                 {% if profile.user in request.user.profile.friends.all %}
-                                <a href="{% url 'core:inbox_detail' profile.user.username %}" class="flex items-center justify-center h-10 px-5 rounded-md bg-blue-600 text-white space-x-1.5 hover:text-white " > 
+                                <a href="" class="flex items-center justify-center h-10 px-5 rounded-md bg-blue-600 text-white space-x-1.5 hover:text-white " > 
                                     <span style="cursor: pointer;" class="text-white" id="unfriend-text"><i class="fas fa-envelope"></i> Send Message </span>
                                 </a>
                                 <a id="unfriend"  data-friend-id="{{profile.user.id}}" class="flex items-center justify-center h-10 px-5 rounded-md bg-red-600 text-white space-x-1.5 hover:text-white unfriend{{profile.user.id}}" > 
@@ -141,7 +140,7 @@
                                             </a>
                                             <div class="flex-1 font-semibold capitalize">
                                                 <a href="#" class="text-black dark:text-gray-100">{{ p.user.profile.full_name|title }}</a>
-                                                <div class="text-gray-700 flex items-center space-x-2">{{p.date|timesince}} ago 
+                                                <div class="text-gray-700 flex items-center space-x-2">{{p.created_at|timesince}} ago 
                                                     <ion-icon name="story-time"></ion-icon>
                                                 </div>
                                             </div>
@@ -268,18 +267,6 @@
                                                     {% endif %}
                                                 {% endfor %}
                                             </div>
-                                            <!-- <div class="dark:text-gray-100">
-                                                Liked by
-                                                
-                                                    {% for i in p.likes.all %}
-                                                    <strong>
-                                                        {% if forloop.first %}
-                                                            {{i.profile.full_name}}
-                                                        {% endif %}
-                                                    </strong> 
-                                                    {% endfor %}
-                                                    and <strong> <span id="like-count{{p.id}}">{{p.likes.all.count|sub:"1"}}</span> Others </strong>
-                                            </div> -->
                                             <div class="dark:text-gray-100">
                                                 <strong><span id="like-count{{p.id}}">{{p.likes.all.count}}</span></strong> Likes
                                             </div>
@@ -320,7 +307,7 @@
                                                                         </div>
                                                                     </details-menu>
                                                               </details>
-                                                        <span> <small>{{c.date|timesince}} ago</small> </span>
+                                                        <span> <small>{{c.created_at|timesince}} ago</small> </span>
                                                     </div>
                                                     <div class="reply-div{{c.id}}">
                                                         
@@ -334,13 +321,13 @@
                                                                         <p class="leading-6">{{r.reply}}</p>
                                                                         <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
                                                                     </div>
-                                                                    <span> <small>{{r.date|timesince}} ago</small> </span>
+                                                                    <span> <small>{{r.created_at|timesince}} ago</small> </span>
                                                                 </div>
                                                             </div>
                                                             
                                                             {% if c.comment_replies.count > 0 %}
                                                             
-                                                            <span style="border-bottom: dashed 1px rgb(73, 173, 255);"><a href="{% url 'core:post-detail' p.slug %}" class="text-blue-500"> <small>View All {{c.comment_replies.count}} Replies</small> </a></span>
+                                                            <span style="border-bottom: dashed 1px rgb(73, 173, 255);"><a href="{% url 'post-detail' p.slug %}" class="text-blue-500"> <small>View All {{c.comment_replies.count}} Replies</small> </a></span>
                                                             {% endif %}
                                                                 
                                                         {% endfor %}
@@ -354,10 +341,10 @@
                                         </div>
                                         
                                         
-                                        {% if p.post_comments.count|sub:2 < 1 %}
+                                        {% if p.post_comments.count < 1 %}
                                         <a href="#" class="hover:text-blue-600 hover:underline">No more Comments </a>
                                         {% else %}
-                                        <a href="{% url 'core:post-detail' p.slug %}" class="hover:text-blue-600 hover:underline">  View {{p.post_comments.count|sub:2}} more Comments </a>
+                                        <a href="{% url 'post-detail' p.slug %}" class="hover:text-blue-600 hover:underline">  View {{p.post_comments.count}} more Comments </a>
                                         {% endif %}
                                             
     
@@ -438,7 +425,7 @@
                                 <div class="grid grid-cols-3 gap-3 text-gray-600 font-semibold">
                                     
                                     {% for f in profile.friends.all %}
-                                        <a href="{% url 'userauths:profile' f.profile.user.username %}">
+                                        <a href="{% url 'profile' f.profile.user.username %}">
                                             <div class="avatar relative rounded-md overflow-hidden w-full h-24 mb-2">
                                                 <img src="{{f.profile.image.url}}" style="width: 100%; height: 100px; object-fit: cover;" alt="" class="w-full h-full object-cover absolute">
                                             </div>
@@ -498,11 +485,11 @@
                             
                             {% for f in profile.friends.all %}
                             <div class="card p-2">
-                                <a href="{% url 'userauths:profile' f.profile.user.username %}">
+                                <a href="{% url 'profile' f.profile.user.username %}">
                                     <img src="{{f.profile.image.url}}" class="h-36 object-cover rounded-md shadow-sm w-full">
                                 </a>
                                 <div class="pt-3 px-1">
-                                    <a href="{% url 'userauths:profile' f.profile.user.username %}" class="text-base font-semibold mb-0.5">  {{f.profile.full_name|title}} </a>
+                                    <a href="{% url 'profile' f.profile.user.username %}" class="text-base font-semibold mb-0.5">  {{f.profile.full_name|title}} </a>
                                     <p class="font-medium text-sm">{{f.profile.friends.all.count}} Friends </p>
                                     <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
                                         Follow

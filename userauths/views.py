@@ -4,7 +4,9 @@ from django.http import HttpRequest
 from django.shortcuts import redirect, render
 from django.views import View
 
+from core.models import FriendRequest, Post
 from utils.anonymous_user import AnonymousUserMixin
+from utils.authenticated_user import AuthenticatedUserMixin
 
 from .forms import UserRegisterForm
 from .models import Profile
@@ -82,3 +84,47 @@ class SingOutView(View):
             logout(request)
             messages.success(request, 'You have successfully logged out')
         return redirect('sign-up')
+
+
+# 'user/my-profile'
+class MyProfileView(AuthenticatedUserMixin, View):
+    def get(self, request: HttpRequest) -> render:
+        profile = request.user.profile
+        posts = Post.objects.filter(active=True, user=request.user)
+
+        context = {
+            "posts": posts,
+            "profile": profile,
+        }
+        return render(request, "userauths/my-profile.html", context)
+
+
+# 'user/profile/<username>'
+class ProfileView(AuthenticatedUserMixin, View):
+    def get(self, request: HttpRequest, username: str) -> render:
+        profile = Profile.objects.get(user__username=username)
+        posts = Post.objects.filter(active=True, user=profile.user)
+
+        # Send Friend Request Feature
+        bool = False
+        bool_friend = False
+
+        sender = request.user
+        receiver = profile.user
+        bool_friend = False
+        try:
+            friend_request = FriendRequest.objects.get(sender=sender, receiver=receiver)
+            if friend_request:
+                bool = True
+            else:
+                bool = False
+        except:
+            bool = False
+
+        context = {
+            "posts": posts,
+            "bool_friend": bool_friend,
+            "bool": bool,
+            "profile": profile,
+        }
+        return render(request, "userauths/friend-profile.html", context)

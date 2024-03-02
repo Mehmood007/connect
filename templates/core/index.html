@@ -101,7 +101,7 @@
                                 <!-- post header-->
                                 <div class="flex justify-between items-center lg:p-4 p-2.5">
                                     <div class="flex flex-1 items-center space-x-4">
-                                        <a href="">
+                                        <a href="{% url 'profile' p.user.username %}">
                                             <img src="{{ p.user.profile.image.url }}" style="width: 40px; height: 40px;" class="bg-gray-200 border border-white rounded-full w-10 h-10">
                                         </a>
                                         <div class="flex-1 font-semibold capitalize">

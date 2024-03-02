@@ -342,10 +342,9 @@ $(document).on("click", "#delete-comment", function(){
 // Add Friend
 $(document).on("click", "#add-friend", function(){
     let id = $(this).attr("data-friend-id")
-    console.log(id);
 
     $.ajax({
-        url: "/add-friend/",
+        url: `/friend-request/${id}`,
         dataType: "json",
         data:{
             "id":id

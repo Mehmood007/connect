@@ -9,7 +9,7 @@ from .posts_views import (
     PostDetailView,
     ReplyCommentView,
 )
-from .views import FeedView
+from .views import FeedView, FriendRequestView
 
 urlpatterns = [
     path('', FeedView.as_view(), name='feed'),
@@ -19,5 +19,6 @@ urlpatterns = [
     path('like-comment', LikeCommentView.as_view(), name='like-comment'),
     path('reply-comment', ReplyCommentView.as_view(), name='reply-comment'),
     path('delete-comment', DeleteCommentView.as_view(), name='delete-comment'),
+    path('friend-request/<id>', FriendRequestView.as_view(), name='friend-request'),
     path('<slug:slug>', PostDetailView.as_view(), name='post-detail'),
 ]

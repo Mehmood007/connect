@@ -372,7 +372,7 @@ $(document).on("click", "#accept-friend-request", function(){
     console.log(id);
 
     $.ajax({
-        url: "/accept-friend-request/",
+        url: "/accept-friend-request",
         dataType: "json",
         data: {
             "id":id
@@ -393,7 +393,7 @@ $(document).on("click", "#reject-friend-request", function(){
     console.log(id);
 
     $.ajax({
-        url: "/reject-friend-request/",
+        url: "/reject-friend-request",
         dataType: "json",
         data: {
             "id":id
@@ -415,7 +415,7 @@ $(document).on("click", "#unfriend", function(){
     console.log(id);
 
     $.ajax({
-        url: "/unfriend/",
+        url: "/unfriend",
         dataType: "json",
         data: {
             "id":id

@@ -4,6 +4,7 @@ from django.views import View
 
 from userauths.models import User
 from utils.authenticated_user import AuthenticatedUserMixin
+from utils.notification import send_notification
 
 from .models import FriendRequest, Post
 
@@ -41,4 +42,74 @@ class FriendRequestView(AuthenticatedUserMixin, View):
             friend_request.save()
             bool = True
 
+            send_notification(receiver, sender, None, None, 'Friend Request')
             return JsonResponse({'success': 'Sent', 'bool': bool})
+
+
+# '/accept-friend'
+class AcceptFriendRequestView(AuthenticatedUserMixin, View):
+    def get(self, request: HttpRequest) -> render:
+        id = request.GET['id']
+
+        receiver = request.user
+        sender = User.objects.get(id=id)
+
+        friend_request = FriendRequest.objects.filter(
+            receiver=receiver, sender=sender
+        ).first()
+
+        receiver.profile.friends.add(sender)
+        sender.profile.friends.add(receiver)
+
+        friend_request.delete()
+
+        data = {
+            "message": "Accepted",
+            "bool": True,
+        }
+
+        send_notification(receiver, sender, None, None, 'Friend Request Accepted')
+        return JsonResponse({'data': data})
+
+
+# '/reject-friend'
+class RejectFriendRequestView(AuthenticatedUserMixin, View):
+    def get(self, request: HttpRequest) -> render:
+        id = request.GET['id']
+
+        receiver = request.user
+        sender = User.objects.get(id=id)
+
+        friend_request = FriendRequest.objects.filter(
+            receiver=receiver, sender=sender
+        ).first()
+        friend_request.delete()
+
+        data = {
+            "message": "Rejected",
+            "bool": True,
+        }
+        return JsonResponse({'data': data})
+
+
+# '/unfriend'
+class UnfriendRequestView(AuthenticatedUserMixin, View):
+    def get(self, request: HttpRequest) -> render:
+        sender = request.user
+        friend_id = request.GET['id']
+        bool = False
+
+        if sender.id == int(friend_id):
+            return JsonResponse(
+                {
+                    'error': 'You cannot unfriend yourself, wait a minute how did you even send yourself a friend request?.'
+                }
+            )
+
+        my_friend = User.objects.get(id=friend_id)
+
+        if my_friend in sender.profile.friends.all():
+            sender.profile.friends.remove(my_friend)
+            my_friend.profile.friends.remove(sender)
+            bool = True
+            return JsonResponse({'success': 'Unfriend Successfull', 'bool': bool})

@@ -6,6 +6,7 @@ from django.utils.timesince import timesince
 from django.views import View
 
 from utils.authenticated_user import AuthenticatedUserMixin
+from utils.notification import send_notification
 
 from .models import Comment, Post, ReplyComment
 
@@ -63,6 +64,8 @@ class LikePostView(AuthenticatedUserMixin, View):
         else:
             post.likes.add(user)
             is_liked = True
+            if post.user != request.user:
+                send_notification(post.user, user, post, None, 'New Like')
 
         data = {'bool': is_liked, 'likes': post.likes.all().count()}
         return JsonResponse({'data': data})
@@ -79,6 +82,9 @@ class CommentOnPostView(AuthenticatedUserMixin, View):
 
         new_comment = Comment(post=post, user=user, comment=comment)
         new_comment.save()
+
+        if new_comment.user != post.user:
+            send_notification(post.user, user, post, new_comment, 'New Comment')
 
         data = {
             'bool': True,
@@ -106,6 +112,10 @@ class LikeCommentView(AuthenticatedUserMixin, View):
         else:
             comment.likes.add(user)
             is_liked = True
+            if comment.user != user:
+                send_notification(
+                    comment.user, user, comment.post, comment, 'Comment Liked'
+                )
 
         data = {'bool': is_liked, 'likes': comment.likes.all().count()}
 
@@ -122,6 +132,11 @@ class ReplyCommentView(AuthenticatedUserMixin, View):
         user = request.user
 
         new_reply = ReplyComment.objects.create(comment=comment, reply=reply, user=user)
+
+        if comment.user != user:
+            send_notification(
+                comment.user, user, comment.post, comment, 'Comment Replied'
+            )
 
         data = {
             "bool": True,

@@ -413,7 +413,7 @@
                                             {% endif %}
                                             {% if request.user == m.reciever %}
                                                 <li class="un-read" style="overflow: hidden;">
-                                                    <a href="{% url 'core:inbox_detail' m.sender.username %}">
+                                                    <a href="">
                                                         <div class="drop_avatar"> <img style="object-fit: cover; width: 40px; height: 40px;" src="{{m.sender.profile.image.url}}" alt="">
                                                         </div>
                                                         <div class="drop_text">

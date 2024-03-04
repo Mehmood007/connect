@@ -434,7 +434,7 @@ $(document).on("click", "#block-user-btn", function(){
     let id = $(this).attr("data-block-user")
     
     $.ajax({
-        url: "/block-user/",
+        url: "/core/block-user",
         dataType: "json",
         data: {
             "id":id

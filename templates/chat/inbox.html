@@ -27,13 +27,13 @@
                             {% for m in chat_message %}
                                 {% if request.user == m.sender %}
                                     <li>
-                                        <a href="{% url 'core:inbox_detail' m.reciever.username %}">
+                                        <a href="{% url 'chat-box' m.reciever.username%}">
                                             <div class="message-avatar"><i class="status-icon status-online"></i><img src="{{m.reciever.profile.image.url}}" alt=""></div>
 
                                             <div class="message-by">
                                                 <div class="message-by-headline">
                                                     <h5>{{m.reciever.profile.full_name}}</h5>
-                                                    <span>{{m.date|timesince}} ago</span>
+                                                    <span>{{m.created_at|timesince}} ago</span>
                                                 </div>
                                                 <p>{{m.message|truncatechars:40}}</p>
                                             </div>
@@ -43,13 +43,13 @@
 
                                 {% if request.user == m.reciever %}
                                     <li>
-                                        <a href="{% url 'core:inbox_detail' m.sender.username %}">
+                                        <a href="{% url 'chat-box' m.sender.username%}">
                                             <div class="message-avatar"><i class="status-icon status-online"></i><img src="{{m.sender.profile.image.url}}" alt=""></div>
 
                                             <div class="message-by">
                                                 <div class="message-by-headline">
                                                     <h5>{{m.sender.profile.full_name}}</h5>
-                                                    <span>{{m.date|timesince}} ago</span>
+                                                    <span>{{m.created_at|timesince}} ago</span>
                                                 </div>
                                                 <p>{{m.message|truncatechars:40}}</p>
                                             </div>

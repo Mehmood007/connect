@@ -113,3 +113,24 @@ class UnfriendRequestView(AuthenticatedUserMixin, View):
             my_friend.profile.friends.remove(sender)
             bool = True
             return JsonResponse({'success': 'Unfriend Successfull', 'bool': bool})
+
+
+class BlockUserView(AuthenticatedUserMixin, View):
+    def get(self, request: HttpRequest) -> render:
+        id = request.GET['id']
+        user = request.user
+        friend = User.objects.get(id=id)
+
+        if user.id == friend.id:
+            return JsonResponse({'error': 'You cannot block yourself'})
+
+        if friend in user.profile.friends.all():
+            user.profile.blocked.add(friend)
+            user.profile.friends.remove(friend)
+            friend.profile.friends.remove(user)
+        else:
+            return JsonResponse(
+                {'error': 'You cannot block someone that is not your friend'}
+            )
+
+        return JsonResponse({'success': 'User Blocked'})

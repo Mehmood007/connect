@@ -274,7 +274,7 @@
                                                     </span>
                                                     <div class="drop_text">
                                                         <p> <strong>{{f.sender.profile.full_name}}</strong> send you a friend request. </p>
-                                                        <time> {{f.date|timesince}} ago </time>
+                                                        <time> {{f.created_at|timesince}} ago </time>
                                                     </div>
                                                     <div class="d-flex" id="friend-request-button-div">
                                                         <a id="accept-friend-request"  data-request-id="{{f.sender.id}}" class="accept-friend-request-hide{{f.sender.id}} flex items-center justify-center h-10 px-5 rounded-md bg-blue-600 text-white space-x-1.5 hover:text-white" style="margin-left: 5px;"> 
@@ -354,7 +354,7 @@
                                                             {% endif %}
                                                                 
                                                         </p>
-                                                        <time> <small>{{n.date|timesince}} ago</small> </time>
+                                                        <time> <small>{{n.created_at|timesince}} ago</small> </time>
                                                     </div>
                                                 </a>
                                             </li>
@@ -401,11 +401,11 @@
                                         {% for m in chat_message %}
                                             {% if request.user == m.sender %}
                                                 <li class="un-read" style="overflow: hidden;">
-                                                    <a href="{% url 'core:inbox_detail' m.reciever.username %}">
+                                                    <a href="">
                                                         <div class="drop_avatar"> <img style="object-fit: cover; width: 40px; height: 40px;" src="{{m.reciever.profile.image.url}}" alt="">
                                                         </div>
                                                         <div class="drop_text">
-                                                            <strong> {{m.reciever.profile.full_name}} </strong> <time>{{m.date|timesince}} ago</time>
+                                                            <strong> {{m.reciever.profile.full_name}} </strong> <time>{{m.created_at|timesince}} ago</time>
                                                             <p> {{m.message|truncatechars:30}}</p>
                                                         </div>
                                                     </a>
@@ -417,7 +417,7 @@
                                                         <div class="drop_avatar"> <img style="object-fit: cover; width: 40px; height: 40px;" src="{{m.sender.profile.image.url}}" alt="">
                                                         </div>
                                                         <div class="drop_text">
-                                                            <strong> {{m.sender.profile.full_name}} </strong> <time><small>{{m.date|timesince}} <ago></ago></small></time>
+                                                            <strong> {{m.sender.profile.full_name}} </strong> <time><small>{{m.created_at|timesince}} <ago></ago></small></time>
                                                             <p> {{m.message|truncatechars:30}}</p>
                                                         </div>
                                                     </a>    
@@ -428,8 +428,8 @@
                                         
                                     </ul>
                                 </div>
-                                <a href="" class="see-all">All Chat Messages</a>
-                                <a href="" class="see-all">All Group Messages</a>
+                                <a href="{% url 'inbox' %}" class="see-all">All Chat Messages</a>
+                                <a href="{% url 'inbox' %}" class="see-all">All Group Messages</a>
                             </div>
 
 

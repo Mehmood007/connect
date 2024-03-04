@@ -29,6 +29,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ASGI_APPLICATION = 'connect.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
+
 
 # Application definition
 
@@ -49,6 +57,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'taggit',
     'import_export',
+    'channels',
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,6 @@
 from django.urls import path
 
+from .messenger_views import InboxDetailView, InboxView
 from .posts_views import (
     CommentOnPostView,
     CreatePostView,
@@ -11,6 +12,7 @@ from .posts_views import (
 )
 from .views import (
     AcceptFriendRequestView,
+    BlockUserView,
     FeedView,
     FriendRequestView,
     RejectFriendRequestView,
@@ -25,6 +27,8 @@ urlpatterns = [
     path('like-comment', LikeCommentView.as_view(), name='like-comment'),
     path('reply-comment', ReplyCommentView.as_view(), name='reply-comment'),
     path('delete-comment', DeleteCommentView.as_view(), name='delete-comment'),
+    path('core/inbox', InboxView.as_view(), name='inbox'),
+    path('core/inbox/<username>', InboxDetailView.as_view(), name='chat-box'),
     path('friend-request/<id>', FriendRequestView.as_view(), name='friend-request'),
     path(
         'accept-friend-request',
@@ -41,5 +45,6 @@ urlpatterns = [
         UnfriendRequestView.as_view(),
         name='unfriend',
     ),
+    path('core/block-user', BlockUserView.as_view(), name='block-user'),
     path('<slug:slug>', PostDetailView.as_view(), name='post-detail'),
 ]
